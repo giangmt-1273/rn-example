@@ -1,6 +1,8 @@
 import {combineReducers} from 'redux';
 import SplashReducer from '../ui/screens/splash/SplashReducer';
 import MainReducer from '../ui/screens/main/MainReducer';
+import SignupReducer from '../ui/screens/signup/SignupReducer';
+import LoginReducer from '../ui/screens/login/LoginReducer';
 
 /**
  * Declare all reducers using on app
@@ -14,6 +16,8 @@ import MainReducer from '../ui/screens/main/MainReducer';
 const reducer = combineReducers({
   splash: SplashReducer,
   main: MainReducer,
+  signup: SignupReducer,
+  login: LoginReducer,
 });
 
 const appReducer = (state: any, action: any) => {

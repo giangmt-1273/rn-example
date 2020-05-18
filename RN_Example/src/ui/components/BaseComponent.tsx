@@ -10,6 +10,8 @@ import {Header, MKeyboardShift, MDialogLoading} from '../components';
 export interface BaseProps {
   // A base props all screen need declare ...container/mapStateToProps to auto mapping props
   isLoading?: boolean;
+  error?: string;
+  isSignUpSuccess?: boolean;
 }
 
 class BaseComponent<P extends BaseProps = {}, S = {}> extends PureComponent<

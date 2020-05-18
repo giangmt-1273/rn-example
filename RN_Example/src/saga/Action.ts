@@ -24,4 +24,6 @@ export class SagaAction {
 
 export default {
   MOVIES: new SagaAction('MOVIES'),
+  SIGNUP: new SagaAction('SIGNUP'),
+  LOGIN: new SagaAction('LOGIN'),
 };

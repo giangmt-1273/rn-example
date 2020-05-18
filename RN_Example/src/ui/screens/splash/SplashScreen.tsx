@@ -3,7 +3,7 @@ import {View} from 'react-native';
 import Splash from 'react-native-splash-screen';
 import {BaseComponent, BaseProps} from '../../components';
 interface Props extends BaseProps {
-  goToMain();
+  goToLanding();
 }
 
 /**
@@ -21,7 +21,7 @@ export default class SplashScreen extends BaseComponent<Props> {
   getAppReady = () => {
     Splash.hide();
     setTimeout(() => {
-      this.props.goToMain();
+      this.props.goToLanding();
     }, 1000);
   };
 

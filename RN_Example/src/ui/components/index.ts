@@ -1,4 +1,4 @@
-import BaseComponent, {BaseProps} from './BaseComponent';
+import BaseComponent, { BaseProps } from './BaseComponent';
 import Header from './Header';
 import MText from './MText';
 import MKeyboardShift from './MKeyboardShift';
@@ -8,6 +8,8 @@ import MAnimatedEllipsis from './MAnimatedEllipsis';
 import MDialogLoading from './MDialogLoading';
 import MTouchable from './MTouchable';
 import MButton from './MButton';
+import LoginButton from './LoginButton';
+import MTexInput from './MTextInput';
 export {
   BaseProps,
   BaseComponent,
@@ -19,5 +21,7 @@ export {
   MAnimatedEllipsis,
   MDialogLoading,
   MTouchable,
-  MButton
+  MButton,
+  LoginButton,
+  MTexInput
 };
