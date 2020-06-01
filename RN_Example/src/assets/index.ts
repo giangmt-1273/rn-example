@@ -21,6 +21,7 @@ const Colors = {
   bbdffc: '#bbdffc',
   f1f9ff: '#f1f9ff',
   blue_circle_user: '#509BEC',
+  main: "#337CAB"
 };
 
 const Size = {

@@ -1,7 +1,8 @@
-import {call, put, takeLeading} from 'redux-saga/effects';
+import { call, put, takeLeading, takeLatest, all } from 'redux-saga/effects';
 import request from '../networking/ReqHelper';
-import Config, {API} from '../networking/Config';
-import Actions, {SagaAction} from './Action';
+import Config, { API } from '../networking/Config';
+import Actions, { SagaAction } from './Action';
+import auth from '@react-native-firebase/auth';
 
 /**
  * Take request with server side
@@ -19,18 +20,56 @@ import Actions, {SagaAction} from './Action';
  *          - action fail: with server response fail with message
  * */
 function* doAsync(sagaAction: SagaAction, api: API) {
-  return yield takeLeading(sagaAction.value, function*(action: any) {
+  return yield takeLeading(sagaAction.value, function* (action: any) {
     try {
-      const {data} = yield call(
+      const { data } = yield call(
         request,
         api,
         action.headers,
         action.params,
         action.data,
       );
-      yield put({type: sagaAction.getSuccess(), data});
+      yield put({ type: sagaAction.getSuccess(), data });
     } catch (e) {
-      yield put({type: sagaAction.getFail(), error: e.message});
+      yield put({ type: sagaAction.getFail(), error: e.message });
+    }
+  });
+}
+
+function signUpWithEmail(userParam) {
+  return auth()
+    .createUserWithEmailAndPassword(userParam.email, userParam.password)
+}
+
+function* signUp(sagaAction: SagaAction) {
+  return yield takeLeading(sagaAction.value, function* (action: any) {
+    try {
+      const { response } = yield call(
+        signUpWithEmail,
+        action
+      );
+      yield put({ type: sagaAction.getSuccess(), response });
+    } catch (e) {
+      yield put({ type: sagaAction.getFail(), error: e.message });
+    }
+  });
+}
+
+function loginWithEmail(userParam) {
+  return auth()
+    .signInWithEmailAndPassword(userParam.email, userParam.password)
+}
+
+function* login(sagaAction: SagaAction) {
+  return yield takeLeading(sagaAction.value, function* (action: any) {
+    try {
+      const { response } = yield call(
+        loginWithEmail,
+        action
+      );
+      yield put({ type: sagaAction.getSuccess(), response });
+    } catch (e) {
+      yield put({ type: sagaAction.getFail(), error: e.message });
     }
   });
 }
@@ -38,6 +77,9 @@ function* doAsync(sagaAction: SagaAction, api: API) {
 /**
  * List #SagaAction for register saga listener
  * */
-export default function*() {
-  yield doAsync(Actions.MOVIES, Config.API.Movies);
+export default function* () {
+  yield all([
+    login(Actions.LOGIN),
+    signUp(Actions.SIGNUP)
+  ])
 }
